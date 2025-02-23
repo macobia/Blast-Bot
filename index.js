@@ -30,7 +30,7 @@ client.on('guildMemberAdd', async (member) => {
 
     // Send private message to the new member
     try {
-        await member.send(`Welcome to the server, ${member.user.username}! Please make sure to check the rules and verify your account.`);
+        await member.send(`Welcome to the server, ${member.user.username}! Please make sure to check the rules and verify your account and claim airdrop via the official Bomt airdrop link.`);
     } catch (err) {
         console.error('Could not send direct message to new member:', err);
     }
@@ -47,7 +47,11 @@ client.on('guildMemberAdd', async (member) => {
 // Event: Moderate Messages (Delete links if not admin)
 client.on('messageCreate', (message) => {
     console.log(message.content);
-    if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && message.content.includes("http")) {
+    if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator) && (message.content.includes("http") ||
+         message.content.includes("https")  ||
+         message.content.includes("www") ||
+          message.content.includes("Www")                                                                           
+       )) {
         message.delete();
         message.channel.send(`${message.author}, posting links is not allowed.`);
     }
