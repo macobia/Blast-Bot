@@ -21,10 +21,6 @@ const client = new Client({
 });
 
 // Event: Bot is ready
-client.once('ready', () => {
-    console.log(`Logged in as ${client.user.tag}`);
-});
-
 // Event: Welcome new members
 client.on('guildMemberAdd', async (member) => {
     // Welcome message in the "welcome" channel
@@ -32,12 +28,6 @@ client.on('guildMemberAdd', async (member) => {
     if (welcomeChannel) {
         welcomeChannel.send(`Welcome <@${member.id}> to **${member.guild.name}**! 🎉 Check your inbox for a message, ${member.user.username}!`);
     }
-
-    const verifyChannel = message.guild.channels.cache.find(channel => channel.name === "airdrop-verification");
-    if (verifyChannel) {
-        verifyChannel.send(`<@${member.id}> please verify your account by entering the airdrop verification code`);
-    }
-
 
     // Send private message to the new member
     try {
@@ -47,7 +37,6 @@ client.on('guildMemberAdd', async (member) => {
     } catch (err) {
         console.error('Could not send direct message to new member:', err);
     }
-
 
 });
 
